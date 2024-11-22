@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('monto_pago', 8, 2);
             $table->boolean('estado_pago');
             $table->boolean('recordatorio_activado');
+            $table->string('descripcion')->nullable(); 
 
             // Definir la clave foránea
             $table->foreign('id_usuario')->references('id')->on('usuarios')->onDelete('cascade');

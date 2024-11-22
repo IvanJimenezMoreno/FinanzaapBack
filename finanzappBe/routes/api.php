@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PresupuestoController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\MovimientoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +29,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('registro', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::post('presupuestos', [PresupuestoController::class, 'store'])->middleware('auth:sanctum');
 Route::get('presupuestos', [PresupuestoController::class, 'index'])->middleware('auth:sanctum');
 Route::post('presupuestos/{id}/restar', [PresupuestoController::class, 'restar'])->middleware('auth:sanctum');
 Route::delete('presupuestos/{id}', [PresupuestoController::class, 'destroy'])->middleware('auth:sanctum');
+
+Route::get('pagos', [PagoController::class, 'index'])->middleware('auth:sanctum');
+Route::post('pagos', [PagoController::class, 'store']) ->middleware('auth:sanctum');
+Route::get('pagos/{id}', [PagoController::class, 'show']) ->middleware('auth:sanctum'); ;
+Route::delete('pagos/{id}', [PagoController::class, 'destroy']) ->middleware('auth:sanctum');
+Route::put('pagos/{id}/estado', [PagoController::class, 'updateEstado']) ->middleware('auth:sanctum');
+
+Route::get('movimientos', [MovimientoController::class, 'index'])->middleware('auth:sanctum');
+Route::post('movimientos', [MovimientoController::class, 'store'])->middleware('auth:sanctum');
+Route::get('movimientos/{id}', [MovimientoController::class, 'show'])->middleware('auth:sanctum');
+Route::delete('movimientos/{id}', [MovimientoController::class, 'destroy'])->middleware('auth:sanctum');
 
