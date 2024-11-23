@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PresupuestoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\MovimientoController;
+use App\Http\Controllers\IngresoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,10 @@ Route::get('movimientos', [MovimientoController::class, 'index'])->middleware('a
 Route::post('movimientos', [MovimientoController::class, 'store'])->middleware('auth:sanctum');
 Route::get('movimientos/{id}', [MovimientoController::class, 'show'])->middleware('auth:sanctum');
 Route::delete('movimientos/{id}', [MovimientoController::class, 'destroy'])->middleware('auth:sanctum');
+
+
+Route::get('ingresos', [IngresoController::class, 'index'])->middleware('auth:sanctum');
+Route::post('ingresos', [IngresoController::class, 'store'])->middleware('auth:sanctum');
+Route::get('ingresos/{id}', [IngresoController::class, 'show'])->middleware('auth:sanctum');
+Route::delete('ingresos/{id}', [IngresoController::class, 'destroy'])->middleware('auth:sanctum');
 

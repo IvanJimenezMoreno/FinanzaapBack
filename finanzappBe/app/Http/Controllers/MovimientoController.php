@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Movimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MovimientoController extends Controller
 {
     public function index()
     {
-        $movimientos = Movimiento::where('id_usuario', Auth::id())->get();
-        return response()->json($movimientos);
+        $movimientos = Movimiento::where('id_usuario', Auth::id())
+            ->orderBy('fecha', 'desc')
+            ->get()
+            ->groupBy(function($date) {
+                return Carbon::parse($date->fecha)->format('Y-m'); // Agrupar por año y mes
+            });
+
+        // Convertir el resultado en un array
+        $result = [];
+        foreach ($movimientos as $key => $group) {
+            $result[] = [
+                'mes' => $key,
+                'movimientos' => $group
+            ];
+        }
+
+        return response()->json($result);
     }
 
     public function store(Request $request)
