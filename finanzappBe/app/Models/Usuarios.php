@@ -15,6 +15,7 @@ class Usuarios extends Authenticatable
         'nombre_usuario',
         'email',
         'password',
+        'is_admin', // Añadir is_admin a los atributos asignables
     ];
 
     protected $hidden = [
@@ -24,5 +25,6 @@ class Usuarios extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean', // Añadir is_admin a los atributos casteados
     ];
 }

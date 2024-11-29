@@ -16,6 +16,7 @@ class RegisterController extends Controller
             'nombre_usuario' => 'required|string|max:255|unique:usuarios',
             'email' => 'required|string|email|max:255|unique:usuarios',
             'password' => 'required|string|min:8|confirmed',
+            'is_admin' => 'boolean', // Validar is_admin
         ]);
 
         if ($validator->fails()) {
@@ -27,6 +28,7 @@ class RegisterController extends Controller
             'nombre_usuario' => $request->nombre_usuario,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'is_admin' => $request->is_admin ?? false, // Asignar is_admin
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
