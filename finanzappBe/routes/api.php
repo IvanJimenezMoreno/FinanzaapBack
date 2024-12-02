@@ -9,6 +9,7 @@ use App\Http\Controllers\PresupuestoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,13 @@ Route::get('ingresos', [IngresoController::class, 'index'])->middleware('auth:sa
 Route::post('ingresos', [IngresoController::class, 'store'])->middleware('auth:sanctum');
 Route::get('ingresos/{id}', [IngresoController::class, 'show'])->middleware('auth:sanctum');
 Route::delete('ingresos/{id}', [IngresoController::class, 'destroy'])->middleware('auth:sanctum');
+
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::get('admin/usuarios', [AdminUserController::class, 'index']);
+    Route::get('admin/usuarios/{id}', [AdminUserController::class, 'show']);
+    Route::post('admin/usuarios', [AdminUserController::class, 'store']);
+    Route::put('admin/usuarios/{id}', [AdminUserController::class, 'update']);
+    Route::delete('admin/usuarios/{id}', [AdminUserController::class, 'destroy']);
+    Route::get('admin/usuarios/buscar/{nombre}', [AdminUserController::class, 'buscarPorNombre']);
+});
 
